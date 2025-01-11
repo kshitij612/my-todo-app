@@ -1,0 +1,23 @@
+@for (todo of todoItems(); track $index) {
+<p>todo</p>
+}
+<div class="container">
+  <input type="text" placeholder="Add Todo..." [(ngModel)]="todoValue" />
+  <button (click)="addTodo({
+        task: todoValue(),
+        completed: false,
+    })"
+  >
+    Add
+  </button>
+</div>
+
+<div class="container">
+
+    <li class="todoitem" >
+        <input id="todo-id" type="checkbox" />
+        <label for="todo-id">{{todoItems()}}</label>
+        <button type="button">Del</button>
+    </li>
+</div>
+
