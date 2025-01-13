@@ -1,23 +1,59 @@
-@for (todo of todoItems(); track $index) {
-<p>todo</p>
-}
-<div class="container">
-  <input type="text" placeholder="Add Todo..." [(ngModel)]="todoValue" />
-  <button (click)="addTodo({
-        task: todoValue(),
-        completed: false,
-    })"
-  >
-    Add
-  </button>
+<div class="container w-75 p-3 bg-light text-dark border rounded">
+  <div class="input-group mb-4">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Enter new Task"
+      aria-label="New Task Name"
+      aria-describedby="button-addon2"
+      [(ngModel)]="todoValue"
+      (keydown.enter)="addTodo()"
+    />
+
+    <button
+      class="btn btn-outline-primary"
+      type="button"
+      id="button-addon2"
+      (click)="addTodo()"
+    >
+      <i class="bi bi-plus-square-dotted"></i>
+    </button>
+  </div>
+
+  <div class="container">
+    @for (todo of todoItems(); track todo.id) {
+    <div
+      class="row align-items-center mb-3 p-2 rounded shadow-sm bg-white border"
+    >
+      <div class="col-1 d-flex justify-content-center">
+        <input
+          class="form-check-input"
+          [id]="todo.id"
+          type="checkbox"
+          [(ngModel)]="todo.completed"
+        />
+      </div>
+
+      <div class="col">
+        <label
+          [for]="todo.id"
+          class="form-control-plaintext"
+          style="word-wrap: break-word; max-width: 200px"
+          [ngClass]="{'text-decoration-line-through': todo.completed}"
+          >{{ todo.task }}</label
+        >
+      </div>
+
+      <div class="col-1 d-flex justify-content-center">
+        <button
+          type="button"
+          class="btn btn-outline-danger"
+          (click)="delTodo(todo.id)"
+        >
+          <i class="bi bi-trash3"></i>
+        </button>
+      </div>
+    </div>
+    }
+  </div>
 </div>
-
-<div class="container">
-
-    <li class="todoitem" >
-        <input id="todo-id" type="checkbox" />
-        <label for="todo-id">{{todoItems()}}</label>
-        <button type="button">Del</button>
-    </li>
-</div>
-
